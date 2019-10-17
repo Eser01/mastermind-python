@@ -22,11 +22,27 @@ flag = True
 while flag:
 	for event in pygame.event.get():
 		print(event)
-		if event.type == 12:
+		if event.type == pygame.QUIT:
 			flag = False
-		elif event.type == 3 and event.key == 27:
+		elif event.type == pygame.KEYUP and event.key == 27:
 			flag = False
 	clock.tick(40)
+
+# QUIT None
+# ACTIVEEVENT gain, state
+# KEYDOWN unicode, key, mod
+# KEYUP key, mod
+# MOUSEMOTION pos, rel, buttons
+# MOUSEBUTTONUP pos, button
+# MOUSEBUTTONDOWN pos, button
+# JOYAXISMOTION joy, axis, value
+# JOYBALLMOTION joy, ball, rel
+# JOYHATMOTION joy, hat, value
+# JOYBUTTONUP joy, button
+# JOYBUTTONDOWN joy, button
+# VIDEORESIZE size, w, h
+# VIDEOEXPOSE None
+# USEREVENT Code
 
 pygame.time.wait(100)
 pygame.quit()
