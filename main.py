@@ -1,48 +1,19 @@
-import pygame
-from pygame.locals import *
+#!/usr/bin/python
+# -*- coding: utf8 -*-
 
-SCREENRECT = Rect(0, 0, 640, 480)
+from controlador import Controlador
+from otros.boton import Boton
+from otros.colores import blanco
 
-# Initialize pygame
-if pygame.get_sdl_version()[0] == 2:
-    pygame.mixer.pre_init(44100, 32, 2, 1024)
-pygame.init()
-if pygame.mixer and not pygame.mixer.get_init():
-    print("Warning, no sound")
-    pygame.mixer = None
+controlador = Controlador()
 
-# Set the display mode
-winstyle = 0  # |FULLSCREEN
-bestdepth = pygame.display.mode_ok(SCREENRECT.size, winstyle, 32)
-screen = pygame.display.set_mode(SCREENRECT.size, winstyle, bestdepth)
+def mostrar_boton():
+	controlador.ventana.fill(blanco)
+	Boton(controlador, 10, 10, 150, 32, 'Juego PvC')
+	Boton(controlador, 10, 52, 150, 32, 'Juego PvP')
+	Boton(controlador, 10, 94, 150, 32, u'Configuración')
+	Boton(controlador, 10, 136, 150, 32, 'Salir')
 
-clock = pygame.time.Clock()
-
-flag = True
-while flag:
-	for event in pygame.event.get():
-		print(event)
-		if event.type == pygame.QUIT:
-			flag = False
-		elif event.type == pygame.KEYUP and event.key == 27:
-			flag = False
-	clock.tick(40)
-
-# QUIT None
-# ACTIVEEVENT gain, state
-# KEYDOWN unicode, key, mod
-# KEYUP key, mod
-# MOUSEMOTION pos, rel, buttons
-# MOUSEBUTTONUP pos, button
-# MOUSEBUTTONDOWN pos, button
-# JOYAXISMOTION joy, axis, value
-# JOYBALLMOTION joy, ball, rel
-# JOYHATMOTION joy, hat, value
-# JOYBUTTONUP joy, button
-# JOYBUTTONDOWN joy, button
-# VIDEORESIZE size, w, h
-# VIDEOEXPOSE None
-# USEREVENT Code
-
-pygame.time.wait(100)
-pygame.quit()
+controlador.init()
+clock = controlador.clock(mostrar_boton)
+controlador.quit()
