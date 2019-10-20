@@ -1,5 +1,5 @@
 import pygame
-from . import VistaSingleton
+from . import Vista, Singleton
 from otros import config
 
 from otros.colores import blanco
@@ -8,7 +8,7 @@ from elementos.Contenedor import Contenedor
 from elementos.Boton import Boton
 from elementos.Imagen import Imagen
 
-class MenuPrincipal(VistaSingleton):
+class MenuPrincipal(Vista, metaclass=Singleton):
 	fondo = None
 
 	def __init__(self, ventana_ancho, ventana_alto):

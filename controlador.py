@@ -80,6 +80,11 @@ class Controlador:
 		# No existe ventana para abrir
 		return None
 
+	def music(self):
+		# Copyright: https://www.youtube.com/watch?v=w1MYuE1eZVo
+		pygame.mixer.music.load('sonidos/gravity_sound.mp3')
+		pygame.mixer.music.play(-1)
+
 	def quit(self):
 		pygame.time.wait(100)
 		pygame.quit()

@@ -27,10 +27,9 @@ class Vista:
 				return True
 		return None
 
-class VistaSingleton(Vista):
-	__instance = None
-
-    def __new__(cls):
-        if VistaSingleton.__instance is None:
-            VistaSingleton.__instance = object.__new__(cls)
-        return VistaSingleton.__instance
+class Singleton(type):
+	_instances = {}
+	def __call__(cls, *args, **kwargs):
+		if cls not in cls._instances:
+			cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+		return cls._instances[cls]
