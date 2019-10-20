@@ -8,10 +8,7 @@ class Elemento:
 	is_mouse_up = False
 	is_mouse_down = False
 
-	on_mouse_in = None
-	on_mouse_out = None
-	on_mouse_up = None
-	on_mouse_down = None
+	on_click = None
 
 	def colision(self, mouse_position):
 		return self.rect.collidepoint(mouse_position)
@@ -21,37 +18,22 @@ class Elemento:
 		self.rect.left = left
 
 	def MouseIn(self, event):
-		is_mouse_in = True
-		is_mouse_out = False
-		if self.on_mouse_in:
-			self.on_mouse_in(event)
-
-	def onMouseIn(self, func):
-		self.on_mouse_in = func
+		self.is_mouse_in = True
+		self.is_mouse_out = False
 
 	def MouseOut(self, event):
-		is_mouse_in = False
-		is_mouse_out = True
-		if self.on_mouse_out:
-			self.on_mouse_out(event)
-
-	def onMouseOut(self, func):
-		self.on_mouse_out = func
+		self.is_mouse_in = False
+		self.is_mouse_out = True
 
 	def MouseUp(self, event):
-		is_mouse_up = True
-		is_mouse_down = False
-		if self.on_mouse_up:
-			self.on_mouse_up(event)
-
-	def onMouseUp(self, func):
-		self.on_mouse_up = func
+		self.is_mouse_up = True
+		self.is_mouse_down = False
+		if self.on_click and self.is_mouse_in:
+			return self.on_click(event)
 
 	def MouseDown(self, event):
-		is_mouse_up = False
-		is_mouse_down = True
-		if self.on_mouse_down:
-			self.on_mouse_down(event)
+		self.is_mouse_up = False
+		self.is_mouse_down = True
 
-	def onMouseDown(self, func):
-		self.on_mouse_down = func
+	def onClick(self, func):
+		self.on_click = func

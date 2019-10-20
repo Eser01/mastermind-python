@@ -61,10 +61,12 @@ class Controlador:
 						redibujar = vista_inicial.MouseButtonDown(event)
 
 				# Redibujar vista en caso de que se haya cambiado algun elemento
-				if redibujar:
+				if redibujar == True:
 					vista_inicial.dibujar(self)
 					pygame.display.update()
 					redibujar = None
+				elif redibujar == False:
+					flag = False
 
 				# Pausar por 40ms para no congelar el PC
 				clock.tick(40)

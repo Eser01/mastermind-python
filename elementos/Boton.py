@@ -32,21 +32,21 @@ class Boton(Elemento):
 		controlador.ventana.blit(text, posicion_texto)
 
 	def MouseIn(self, event):
-		super().MouseIn(event)
 		self.color_fondo = colores.azur_light
+		return super().MouseIn(event)
 
 	def MouseOut(self, event):
-		super().MouseOut(event)
 		self.color_fondo = colores.azur
+		return super().MouseOut(event)
 
 	def MouseUp(self, event):
-		super().MouseUp(event)
 		if self.is_mouse_in:
 			self.color_fondo = colores.azur_light
 		else:
 			self.color_fondo = colores.azur
+		return super().MouseUp(event)
 
 	def MouseDown(self, event):
-		super().MouseDown(event)
 		self.color_fondo = colores.azur_dark
+		return super().MouseDown(event)
 		
