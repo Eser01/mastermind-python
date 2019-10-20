@@ -1,22 +1,6 @@
 import pygame
 from pygame.locals import *
 
-# QUIT None
-# ACTIVEEVENT gain, state
-# KEYDOWN unicode, key, mod
-# KEYUP key, mod
-# MOUSEMOTION pos, rel, buttons
-# MOUSEBUTTONUP pos, button
-# MOUSEBUTTONDOWN pos, button
-# JOYAXISMOTION joy, axis, value
-# JOYBALLMOTION joy, ball, rel
-# JOYHATMOTION joy, hat, value
-# JOYBUTTONUP joy, button
-# JOYBUTTONDOWN joy, button
-# VIDEORESIZE size, w, h
-# VIDEOEXPOSE None
-# USEREVENT Code
-
 class Controlador:
 	ventana = None
 	ventana_ancho = 640
@@ -45,29 +29,69 @@ class Controlador:
 		# Cambiar titulo de la ventana
 		pygame.display.set_caption(ventana_titulo)
 	
-	def clock(self, fn=None):
+	def clock(self, vista_inicial):
 		if self.ventana:
+			# Dibujar por primera vez
+			vista_inicial.dibujar(self)
+			pygame.display.update()
+
 			clock = pygame.time.Clock()
 			flag = True
+			redibujar = None
 			while flag:
-				if fn:
-					fn()
-					pygame.display.update()
+				# Verificar todos los eventos que esten almacenados
 				for event in pygame.event.get():
-					print(event)
 					if event.type == pygame.QUIT:
 						flag = False
 						break
+
 					elif event.type == pygame.KEYUP:
 						if event.key == 27:
 							flag = False
 							break
 						else:
 							pass
+
+					elif event.type == pygame.MOUSEMOTION:
+						redibujar = vista_inicial.MouseMotion(event)
+
+					elif event.type == pygame.MOUSEBUTTONUP:
+						redibujar = vista_inicial.MouseButtonUp(event)
+
+					elif event.type == pygame.MOUSEBUTTONDOWN:
+						redibujar = vista_inicial.MouseButtonDown(event)
+
+				# Redibujar vista en caso de que se haya cambiado algun elemento
+				if redibujar:
+					vista_inicial.dibujar(self)
+					pygame.display.update()
+					redibujar = None
+
+				# Pausar por 40ms para no congelar el PC
 				clock.tick(40)
+
+			# La ventana se cierra correctamente
 			return True
+
+		# No existe ventana para abrir
 		return None
 
 	def quit(self):
 		pygame.time.wait(100)
 		pygame.quit()
+
+# QUIT None
+# ACTIVEEVENT gain, state
+# KEYDOWN unicode, key, mod
+# KEYUP key, mod
+# MOUSEMOTION pos, rel, buttons
+# MOUSEBUTTONUP pos, button
+# MOUSEBUTTONDOWN pos, button
+# JOYAXISMOTION joy, axis, value
+# JOYBALLMOTION joy, ball, rel
+# JOYHATMOTION joy, hat, value
+# JOYBUTTONUP joy, button
+# JOYBUTTONDOWN joy, button
+# VIDEORESIZE size, w, h
+# VIDEOEXPOSE None
+# USEREVENT Code
