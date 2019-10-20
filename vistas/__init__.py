@@ -26,3 +26,11 @@ class Vista:
 				elemento.MouseDown(event)
 				return True
 		return None
+
+class VistaSingleton(Vista):
+	__instance = None
+
+    def __new__(cls):
+        if VistaSingleton.__instance is None:
+            VistaSingleton.__instance = object.__new__(cls)
+        return VistaSingleton.__instance

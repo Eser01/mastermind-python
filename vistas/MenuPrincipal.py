@@ -1,5 +1,5 @@
 import pygame
-from . import Vista
+from . import VistaSingleton
 from otros import config
 
 from otros.colores import blanco
@@ -8,7 +8,7 @@ from elementos.Contenedor import Contenedor
 from elementos.Boton import Boton
 from elementos.Imagen import Imagen
 
-class MenuPrincipal(Vista):
+class MenuPrincipal(VistaSingleton):
 	fondo = None
 
 	def __init__(self, ventana_ancho, ventana_alto):
@@ -53,12 +53,15 @@ class MenuPrincipal(Vista):
 
 	def boton_modojugador1(self, event):
 		print('Click: Modo Jugador 1')
+		return True
 
 	def boton_modojugador2(self, event):
 		print('Click: Modo Jugador 2')
+		return True
 
 	def boton_configuracion(self, event):
 		print('Click: Configuracion')
+		return True
 
 	def boton_salir(self, event):
 		print('Click: Salir')

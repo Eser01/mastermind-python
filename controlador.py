@@ -60,13 +60,16 @@ class Controlador:
 					elif event.type == pygame.MOUSEBUTTONDOWN:
 						redibujar = vista_inicial.MouseButtonDown(event)
 
-				# Redibujar vista en caso de que se haya cambiado algun elemento
-				if redibujar == True:
+				# Redibujar vista en caso de que se haya cambiado algun elemento / o cerrar terminar el programa en caso de una señar "False"
+				if redibujar:
 					vista_inicial.dibujar(self)
 					pygame.display.update()
 					redibujar = None
 				elif redibujar == False:
 					flag = False
+					vista_inicial.dibujar(self)
+					pygame.display.update()
+					redibujar = None
 
 				# Pausar por 40ms para no congelar el PC
 				clock.tick(40)
