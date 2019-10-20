@@ -1,11 +1,10 @@
 import pygame
 from pygame.locals import *
+from otros import config
 
 class Controlador:
 	ventana = None
-	ventana_ancho = 640
-	ventana_alto = 480
-	SCREENRECT = Rect(0, 0, ventana_ancho, ventana_alto)
+	SCREENRECT = Rect(0, 0, config.VENTANA_ANCHO, config.VENTANA_ALTO)
 	font = None
 
 	def init(self, ventana_titulo='Mastermind'):

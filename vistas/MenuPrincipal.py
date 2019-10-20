@@ -1,6 +1,6 @@
 import pygame
 from . import Vista
-import otros.config
+from otros import config
 
 from otros.colores import blanco
 
@@ -11,10 +11,26 @@ from elementos.Imagen import Imagen
 class MenuPrincipal(Vista):
 	contenedor = None
 	elementos = []
+	fondo = None
 
-	def __init__(self):
-		self.contenedor = Contenedor(620, 310)
-		self.contenedor.posicion(5, 80)
+	def __init__(self, ventana_ancho, ventana_alto):
+		self.fondo = pygame.image.load('imagenes/fondo1.jpg')
+		self.fondo_rect = self.fondo.get_rect()
+		if self.fondo_rect.width >= ventana_ancho and self.fondo_rect.height >= ventana_alto:
+			pos_y = (self.fondo_rect.height - ventana_alto)/2
+			pos_x = (self.fondo_rect.width - ventana_ancho)/2
+			chop_rect = pygame.Rect(pos_x, pos_y, ventana_ancho, ventana_alto)
+			print(self.fondo_rect.width, ventana_ancho)
+			print(self.fondo_rect.width - ventana_ancho)
+			print(chop_rect)
+			self.fondo = self.fondo.subsurface(chop_rect)
+			self.fondo_rect = self.fondo.get_rect()
+
+		ventana_ancho -= config.SEPARACION*2
+		ventana_alto -= config.SEPARACION*2
+
+		self.contenedor = Contenedor(ventana_ancho, ventana_alto)
+		self.contenedor.posicion(config.SEPARACION, 80)
 		self.contenedor.alinear('centro')
 
 		logo = Imagen(150, 140, 'imagenes/logo.png')
@@ -53,7 +69,7 @@ class MenuPrincipal(Vista):
 		print('Click: Salir')
 
 	def dibujar(self, controlador):
-		controlador.ventana.fill(blanco)
+		controlador.ventana.blit(self.fondo, self.fondo_rect)
 		self.contenedor.dibujar(controlador)
 
 	def MouseMotion(self, event):
