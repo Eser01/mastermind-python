@@ -7,17 +7,16 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = 'hide'
 
 # SubComponentes del programa
 from controlador import Controlador
-from vistas.MenuPrincipal import MenuPrincipal
-from otros import config
 
-# Vista del Menu Principal
-vista_inicial = MenuPrincipal(config.VENTANA_ANCHO, config.VENTANA_ALTO)
-vista_inicial2 = MenuPrincipal(config.VENTANA_ANCHO, config.VENTANA_ALTO)
-vista_inicial3 = MenuPrincipal(config.VENTANA_ANCHO, config.VENTANA_ALTO)
+# Vistas
+from vistas.MenuPrincipal import MenuPrincipal
 
 # Crear controlador, Iniciar, cargar la vista del menu principal, y mecanismo de cierre
 controlador = Controlador()
+
+controlador.registrarVista('menu-principal', MenuPrincipal)
+
 controlador.init()
 controlador.music()
-clock = controlador.clock(vista_inicial)
+clock = controlador.clock('menu-principal')
 controlador.quit()
